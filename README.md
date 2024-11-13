@@ -1,11 +1,13 @@
 # ros2_aruco
 
-ROS2 Wrapper for OpenCV Aruco Marker Tracking
+> ROS2 Wrapper for OpenCV Aruco Marker Tracking
+> Distro: Humble(tested)
 
-This package depends on a recent version of OpenCV python bindings and transforms3d library:
+This package depends on a recent version of OpenCV python bindings, transforms3d library and ros tf-transformations package:
 
 ```
 pip3 install opencv-contrib-python transforms3d
+sudo apt-get install ros-humble-tf-transformations
 ```
 
 ## ROS2 API for the ros2_aruco Node
