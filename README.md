@@ -1,7 +1,9 @@
 # ros2_aruco
 
 > ROS2 Wrapper for OpenCV Aruco Marker Tracking
-> Distro: Humble(tested)
+>
+> This is a fork of https://github.com/JMU-ROBOTICS-VIVA/ros2_aruco. Modified for realsense d435i, ROS Humbel as a quick startup
+
 
 This package depends on a recent version of OpenCV python bindings, transforms3d library and ros tf-transformations package:
 
@@ -23,7 +25,7 @@ Published Topics:
 * `/aruco_markers` (`ros2_aruco_interfaces.msg.ArucoMarkers`) - Provides an array of all poses along with the corresponding marker ids
 
 Parameters:
-* `marker_size` - size of the markers in meters (default .0625)
+* `marker_size` - size of the markers in meters (default .05)
 * `aruco_dictionary_id` - dictionary that was used to generate markers (default `DICT_5X5_250`)
 * `image_topic` - image topic to subscribe to (default `/camera/image_raw`)
 * `camera_info_topic` - Camera info topic to subscribe to (default `/camera/camera_info`)
@@ -31,11 +33,18 @@ Parameters:
 
 ## Running Marker Detection
 
-1. Using the launch file - parameters will be loaded from _aruco\_parameters.yaml_.
+0. Make sure [realsense ros2 packages] are installed and built properly. 
+- Launch realsense camera
+```
+ros2 launch realsense2_camera rs_launch.py enable_depth:=false camera_namespace:="/" 
+```
+1. Using the launch file
+- Parameters will be loaded from `./ros2_aruco/config/aruco_parameters.yaml`.
 ```
 ros2 launch ros2_aruco aruco_recognition.launch.py
 ```
-2. As a single ROS 2 node - you can specify parameter values at startup by adding `--ros-args -p marker_size:=.05`, for example.
+2. As a single ROS 2 Node
+- You can specify parameter values at startup by adding `--ros-args -p marker_size:=.05`, for example.
 ```
 ros2 run ros2_aruco aruco_node
 ```

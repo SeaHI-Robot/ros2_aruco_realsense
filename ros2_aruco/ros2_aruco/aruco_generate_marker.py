@@ -2,7 +2,8 @@
 Script for generating Aruco marker images.
 
 Author: Nathan Sprague
-Version: 10/26/2020
+Modified by: Siyuan Wang
+Version: 11/16/2024
 """
 
 import argparse

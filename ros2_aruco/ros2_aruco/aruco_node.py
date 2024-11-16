@@ -4,7 +4,6 @@ This node locates Aruco AR markers in images and publishes their ids and poses.
 Subscriptions:
    /camera/image_raw (sensor_msgs.msg.Image)
    /camera/camera_info (sensor_msgs.msg.CameraInfo)
-   /camera/camera_info (sensor_msgs.msg.CameraInfo)
 
 Published Topics:
     /aruco_poses (geometry_msgs.msg.PoseArray)
@@ -15,7 +14,7 @@ Published Topics:
        marker ids.
 
 Parameters:
-    marker_size - size of the markers in meters (default .0625)
+    marker_size - size of the markers in meters (default .05)
     aruco_dictionary_id - dictionary that was used to generate markers
                           (default DICT_5X5_250)
     image_topic - image topic to subscribe to (default /camera/image_raw)
@@ -23,8 +22,8 @@ Parameters:
                          (default /camera/camera_info)
 
 Author: Nathan Sprague
-Version: 10/26/2020
-
+Modified by: Siyuan Wang
+Version: 11/16/2024
 """
 
 import rclpy
@@ -48,7 +47,7 @@ class ArucoNode(rclpy.node.Node):
         # Declare and read parameters
         self.declare_parameter(
             name="marker_size",
-            value=0.0625,
+            value=0.05,
             descriptor=ParameterDescriptor(
                 type=ParameterType.PARAMETER_DOUBLE,
                 description="Size of the markers in meters.",
@@ -145,8 +144,8 @@ class ArucoNode(rclpy.node.Node):
         self.intrinsic_mat = None
         self.distortion = None
 
-        self.aruco_dictionary = cv2.aruco.Dictionary_get(dictionary_id)
-        self.aruco_parameters = cv2.aruco.DetectorParameters_create()
+        self.aruco_dictionary = cv2.aruco.getPredefinedDictionary(dictionary_id)
+        self.aruco_parameters = cv2.aruco.DetectorParameters()
         self.bridge = CvBridge()
 
     def info_callback(self, info_msg):
