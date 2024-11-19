@@ -16,9 +16,9 @@ sudo apt-get install ros-humble-tf-transformations
 
 This node locates Aruco AR markers in images and publishes their ids and poses.
 
-Subscriptions:
-* `/camera/image_raw` (`sensor_msgs.msg.Image`)
-* `/camera/camera_info` (`sensor_msgs.msg.CameraInfo`)
+Subscriptions (default values for launch file):
+* `/camera/color/image_raw` (`sensor_msgs.msg.Image`)
+* `/camera/color/camera_info` (`sensor_msgs.msg.CameraInfo`)
 
 Published Topics:
 * `/aruco_poses` (`geometry_msgs.msg.PoseArray`) - Poses of all detected markers (suitable for rviz visualization)
@@ -27,8 +27,8 @@ Published Topics:
 Parameters:
 * `marker_size` - size of the markers in meters (default .05)
 * `aruco_dictionary_id` - dictionary that was used to generate markers (default `DICT_5X5_250`)
-* `image_topic` - image topic to subscribe to (default `/camera/image_raw`)
-* `camera_info_topic` - Camera info topic to subscribe to (default `/camera/camera_info`)
+* `image_topic` - image topic to subscribe to (default `/camera/color/image_raw`)
+* `camera_info_topic` - Camera info topic to subscribe to (default `/camera/color/camera_info`)
 * `camera_frame` - Camera optical frame to use (default to the frame id provided by the camera info message.)
 
 ## Running Marker Detection
@@ -38,15 +38,10 @@ Parameters:
 ```
 ros2 launch realsense2_camera rs_launch.py enable_depth:=false camera_namespace:="/" 
 ```
-1. Using the launch file
+1. Launch the aruco_recognitionfile
 - Parameters will be loaded from `./ros2_aruco/config/aruco_parameters.yaml`.
 ```
 ros2 launch ros2_aruco aruco_recognition.launch.py
-```
-2. As a single ROS 2 Node
-- You can specify parameter values at startup by adding `--ros-args -p marker_size:=.05`, for example.
-```
-ros2 run ros2_aruco aruco_node
 ```
 
 ## Generating Marker Images
