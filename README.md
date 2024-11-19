@@ -16,7 +16,7 @@ sudo apt-get install ros-humble-tf-transformations
 
 This node locates Aruco AR markers in images and publishes their ids and poses.
 
-Subscriptions (default values for launch file):
+Subscriptions (default values for launch file, these can be changed):
 * `/camera/color/image_raw` (`sensor_msgs.msg.Image`)
 * `/camera/color/camera_info` (`sensor_msgs.msg.CameraInfo`)
 
